@@ -79,7 +79,7 @@ Throughput asumido: 5GB
 
 Elegi este modelo por que los resultados que se mostraron anteriormente muestran velocidades superiores a los 2000 MiB/s, lo cual es físicamente imposible para un disco mecánico o un SSD SATA antiguo. Se parece a mni entorno real ya que el equipo con el que trabajo usualmente tiene una unidad de estado solido moderna
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ## Interpretación Comparativa
 
@@ -105,11 +105,15 @@ Elegi este modelo por que los resultados que se mostraron anteriormente muestran
 * **¿Cuál patrón aprovecha mejor la lectura en bloques?**
     El patron aleatorio muestra una mejorar lectura, el secuencial es rapido desde el inicio pero el aleatorio va aumentando poco a poco mientras que el bloque crece
 
+![Gráfica de Throughput](images/fig_throughput.png)
+
 ![Banner](separadores/separador.png)
 
 ### Interprete la gráfica de tiempo
 **Explique cómo cambia el tiempo total cuando cambia el tamaño de bloque.**
 Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente, el tiempo secuencial disminuye mucho al principio y luego se estabiliza, mientras que el tiempo aleatorio aumenta de forma lineal y constante. Las curvas divergen mas  en los extremos y el punto de mayor divergencia inicial ocurre en el bloque de 4.0 KiB, donde el acceso secuencial es mucho más lento que el aleatorio.
+
+![Gráfica de Tiempos](images/fig_tiempo_empirico.png)
 
 ![Banner](separadores/separador.png)
 
@@ -122,6 +126,8 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 
 * **¿Qué le sugiere eso sobre el modelo usado?**
     Que el modelo usado no trata de forma coherente la operacfion en cargas de trabajo con muchos bloques pequeños y no tiene en cuenta el sobrecosto de procesamiento del sistema operativo.
+
+![Comparativa Secuencial](images/fig_tiempo_teoria_vs_practica_secuencial.png)
 
 ![Banner](separadores/separador.png)
 
@@ -136,6 +142,8 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 * **¿Que le sugiere eso sobre el modelo usado?**
     Que el modelo subestima el tiempo real ya que la latencia elegida de 10 microsegundos se ajusta muy bien al ssd aunque la pequeña diferencia final se debe a que el sistema operativo y el hardware real tardan mas gestionando el orden de cada uno de los saltos
 
+![Comparativa Aleatoria](images/fig_tiempo_teoria_vs_practica_aleatorio.png)
+
 ![Banner](separadores/separador.png)
 
 ### Interprete la ventaja del acceso secuencial 
@@ -148,6 +156,8 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 
 * **¿Qué implicación tiene esto para el diseño de software?**
     Esto implica que para aplicaciones que manejan bases de datos o archivos pesados es mejor diseñar el software para que pida los datos en bloques de 64 kib o mas ya que esto minimiza la penalizacion por saltos aleatorios y permite que el disco trabaje a su maxima potencia sin importar si la informacion esta dispersa o seguida
+
+![Ventaja acceso Sencuencial](images/fig_speedup.png)
 
 ![Banner](separadores/bannerfinal.png)
 
