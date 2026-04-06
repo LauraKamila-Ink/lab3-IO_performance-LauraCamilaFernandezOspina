@@ -24,7 +24,7 @@
 2. **¿Qué representa el throughput?**
     Es la velocidad real en la que los datos se mueven y tambien representa cuanta informacion es capaz de mover por segundo.
 
-3. **¿Por qué en acceso secuencial normalmente se asume que M≈1 ?
+3. **¿Por qué en acceso secuencial normalmente se asume que M≈1 ?**
     Por que los datos estan seguidos unos de otros en el disco entonces el sistema hace ese esfuerzo de busqueda al principio y no tiene por que realizar saltos a otras posicisiones.
 
 4. **¿Por qué en acceso aleatorio $M$ tiende a ser mayor?**
