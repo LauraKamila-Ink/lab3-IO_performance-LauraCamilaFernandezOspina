@@ -1,4 +1,4 @@
-!![Banner]/(banner.png)
+![Banner](separadores/banner.png)
 
 # Laboratorio 3: Análisis de Rendimiento de E/S
 > **Estructura Física de la Información** > **Estudiante:** Laura Camila Fernández Ospina  
@@ -14,7 +14,7 @@
 * **Interfaz:** PCIe Gen 3.0
 * **Entorno de Ejecución:** Local (Visual Studio Code + Jupyter Extension)
 
-![Banner](bannerfinal.png)
+![Banner](separadores/bannerfinal.png)
 
 ## Punto de control 1 — Revisión conceptual
 
@@ -30,7 +30,7 @@
 4. **¿Por qué en acceso aleatorio $M$ tiende a ser mayor?**
     Por que los datos no estan pegados si no dispersos y el sistema a cada rato debe volver a hacer ese salto o busqueda entonces tarda mas tiempo y acumula retrasos.
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ## Punto de Control 2 - Reflexión sobre la Configuración
 
@@ -43,8 +43,7 @@
 * **Entorno de ejecución:** ¿Está ejecutando en local o en Google Colab?
     En local, usando Visual Studio Code con la extension de Jypiter, personalmente es mas comodo y manejable.
 
-![Banner](separador.png)
-
+![Banner](separadores/separador.png)
 ## Análisis del Experimento
 
 * **¿Qué papel cumple este archivo dentro del experimento?**
@@ -56,8 +55,7 @@
 * **¿Qué cree que ocurriría si el archivo fuera demasiado pequeño?**
     Lo que sucederia es que como es tan pequeño el sistema lo cargaria mucho mas rapido pero tiene desventaja de que en las pruebas podria suceder que no se mida la velocidad de memoria del disco y los resultados no representarian el rendimiento real.
 
-
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ## Análisis de Resultados Empíricos
 
@@ -71,7 +69,7 @@
 * **¿En qué caso observó la mayor diferencia entre secuencial y aleatorio?**
     Segun el analisis, se ve mucho en el bloque de 16KB que el secuencial (1187 MiB/s) superó al aleatorio (877 MiB/s) por unos 300 MiB/s de diferencia.
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ## Punto de Control 3 - Modelo Teórico vs Práctica
 
@@ -94,7 +92,7 @@ Elegi este modelo por que los resultados que se mostraron anteriormente muestran
 * **¿Qué factores reales podrían explicar las diferencias?**
     El cache del sistema, la carga del sistema o el overhead del sofware.
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ### Interprete la gráfica de throughput
 
@@ -107,13 +105,13 @@ Elegi este modelo por que los resultados que se mostraron anteriormente muestran
 * **¿Cuál patrón aprovecha mejor la lectura en bloques?**
     El patron aleatorio muestra una mejorar lectura, el secuencial es rapido desde el inicio pero el aleatorio va aumentando poco a poco mientras que el bloque crece
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ### Interprete la gráfica de tiempo
 **Explique cómo cambia el tiempo total cuando cambia el tamaño de bloque.**
 Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente, el tiempo secuencial disminuye mucho al principio y luego se estabiliza, mientras que el tiempo aleatorio aumenta de forma lineal y constante. Las curvas divergen mas  en los extremos y el punto de mayor divergencia inicial ocurre en el bloque de 4.0 KiB, donde el acceso secuencial es mucho más lento que el aleatorio.
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ### Interprete la comparación empírico vs teórico - Grafica Sencencial
 * **¿Las curvas tienen una tendencia similar?**
@@ -125,7 +123,7 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 * **¿Qué le sugiere eso sobre el modelo usado?**
     Que el modelo usado no trata de forma coherente la operacfion en cargas de trabajo con muchos bloques pequeños y no tiene en cuenta el sobrecosto de procesamiento del sistema operativo.
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ### Interprete la comparación empírico vs teórico - Grafica Aleatoria
 
@@ -138,7 +136,7 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 * **¿Que le sugiere eso sobre el modelo usado?**
     Que el modelo subestima el tiempo real ya que la latencia elegida de 10 microsegundos se ajusta muy bien al ssd aunque la pequeña diferencia final se debe a que el sistema operativo y el hardware real tardan mas gestionando el orden de cada uno de los saltos
 
-![Banner](separador.png)
+![Banner](separadores/separador.png)
 
 ### Interprete la ventaja del acceso secuencial 
 
@@ -151,15 +149,14 @@ Cuando aumenta el tamaño del bloque las curvas se comportan de manera diferente
 * **¿Qué implicación tiene esto para el diseño de software?**
     Esto implica que para aplicaciones que manejan bases de datos o archivos pesados es mejor diseñar el software para que pida los datos en bloques de 64 kib o mas ya que esto minimiza la penalizacion por saltos aleatorios y permite que el disco trabaje a su maxima potencia sin importar si la informacion esta dispersa o seguida
 
-
-![Banner](banner final.png)
+![Banner](separadores/bannerfinal.png)
 
 ## Conclusión final
 
 Los datos en sistemas de almacenamiento, están organizados en bloques fisicos. Entender esto es esencial ya que define la eficiencia, con la cual el hardware accede a la informacion. En este experimento, se verifico que inclusive en una unidad SSD NVMe, sin componentes mecánicos, el acceso secuencial y aleatorio muestran rendimientos diferenciados.Esto es debido al overhead logico del controlador, y a la gestión de capas del sistema operativo. Aunque, el modelo teórico de latencia fija, predijo el comportamiento aleatorio con exactitud, subestimo el secuencial omitiendo el costo de procesar muchísimas solicitudes pequeñas y a pesar de eso, se observo que la ventaja secuencial frente al aleatorio es mucho menor que en discos tradicionales, logrando un speedup máximo de 1.35x con bloques de 16 KiB. Sin embargo, usando bloques mas grandes de 256 KiB, el sistema satura el ancho de banda, logrando un throughput de 2990 MiB/s, casi igualando ambos patrones.
 Entendiendo los requerimientos de diseño para optimizar un sistema funcional, es crucial dar precedencia al empleo de transferencias agrupadas de gran escala, o batching, con el objetivo de mitigar la latencia, asi posibilitando que el hardware opere dentro de su rango optimo de rendimiento.
 
----
+![Banner](separadores/separador.png)
 
 ## Preguntas de cierre
 
@@ -180,7 +177,7 @@ Entendiendo los requerimientos de diseño para optimizar un sistema funcional, e
 * **Aplicación práctica:** Imagine que debe almacenar una tabla de estudiantes con 1 millón de registros. Con base en lo que midió, ¿preferiría leerla toda de forma secuencial o acceder a registros individuales de forma aleatoria? ¿Por qué?
     Para un millon de entradas optar por una lectura secuencial de la tabla sería mi elección. El acceso secuencial habilita al sistema operativo a implementar lectura anticipada minimizando interrupciones al controlador de disco, eso es muy importante. El acceso aleatorio a un millón de registros requeriría que el sistema gestione un millón de peticiones individualmente un proceso que invariablemente demostrará ser menos eficiente comparado con la fluidez que ofrece la lectura continua y simple de la tabla entera.
 
----
+![Banner](separadores/separador.png)
 
 ## Preguntas de Análisis Científico
 
@@ -199,4 +196,4 @@ Entendiendo los requerimientos de diseño para optimizar un sistema funcional, e
 * **Implicaciones en Sistemas:** Si usted estuviera diseñando un Motor de Base de Datos, ¿de qué manera utilizaría estos hallazgos para optimizar la velocidad de recuperación de registros?
     Para optimizar un motor de base de datos, implementaría lectura por lotes. Configuraría el sistema para recuperar datos en páginas de 256 KiB, minimizando las peticiones pequeñas al SO y garantizando que el disco trabaje siempre en su zona de máximo throughput.
 
-![Banner](bannerfinal.png)
+![Banner](separadores/bannerfinal.png)
